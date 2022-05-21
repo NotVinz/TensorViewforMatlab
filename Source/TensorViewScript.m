@@ -130,7 +130,7 @@ Amap2=max(unique(AlphaMap));
 
 colordata=zeros(length(AlphaMap(:,1)),length(AlphaMap(1,:)),3); %creates a colordata matrix, for applying different
                                                                 %colors to the tensor shielding/deshielding parts;
-                                                                %colors are stored as RGB triples
+                                                                %colors are stored as RGB triplets
 color1=[242/255,188/255,13/255];
 color2=[121/255,4/255,179/255];
 
