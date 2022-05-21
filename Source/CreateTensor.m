@@ -87,9 +87,10 @@ if OvaloidEllipsoid == "ovaloid" % if ovaloid
                 Y(i,j) = ORadi(i,j)*sin(th(i))*sin(ph(j))*OTensorScale + atomcoord(2);
                 Z(i,j) = ORadi(i,j)*cos(th(i))*OTensorScale + atomcoord(3);
             end
+        end
                 CSAneg = find(ORadi<0);
                 AlphaMap(CSAneg) = Transparency - 0.2; % 0.2 is the transparency shift for negative CSA
-        end
+        
     elseif ShieldingShift == 1 % if shift, this part is only used when running the script version of TensorView for Matlab
         OTensorScale = TensorScale/sum(abs(CShiftA)/3);
         for i = 1:length(th)
@@ -99,9 +100,9 @@ if OvaloidEllipsoid == "ovaloid" % if ovaloid
                 Y(i,j) = ORadi(i,j)*sin(th(i))*sin(ph(j))*OTensorScale + atomcoord(2);
                 Z(i,j) = ORadi(i,j)*cos(th(i))*OTensorScale + atomcoord(3);
             end
+        end
                 CSAneg = find(ORadi<0);
                 AlphaMap(CSAneg) = Transparency - 0.2; % 0.2 is the transparency shift for negative CSA
-        end
     else
         error("ShieldingShift must be either 0 or 1")
     end
