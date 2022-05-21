@@ -125,7 +125,24 @@ Zbox=max(xyz(:,3))-min(xyz(:,3));
 zoomFactor = min([Xbox Ybox Zbox])/max([Xbox Ybox Zbox]);
 %%%%
 
+Amap1=min(unique(AlphaMap)); %stores the positions of the two "alphas", that is, the shielding and deshielding components of the tensor
+Amap2=max(unique(AlphaMap));
 
+colordata=zeros(length(AlphaMap(:,1)),length(AlphaMap(1,:)),3); %creates a colordata matrix, for applying different
+                                                                %colors to the tensor shielding/deshielding parts;
+                                                                %colors are stored as RGB triples
+color1=[242/255,188/255,13/255];
+color2=[121/255,4/255,179/255];
+
+for i=1:length(colordata(:,1,1))
+    for j=1:length(colordata(1,:,1))
+        if AlphaMap(i,j)==Amap1
+        colordata(i,j,:)=color1;
+        elseif AlphaMap(i,j)==Amap2
+        colordata(i,j,:)=color2;
+        end
+    end
+end
 
 if PlotTensor==0 % plots the tensor with the molecule
     fig = figure
@@ -136,7 +153,12 @@ if PlotTensor==0 % plots the tensor with the molecule
             ExtraTensor = cell2mat(C(1,i));
             Extraatomcoord = cell2mat(C(2,i));
             [X,Y,Z,AlphaMap]=CreateTensor(ExtraTensor,Extraatomcoord,CSAref,OvaloidEllipsoid,ShieldingShift,Transparency,TensorScale);
-            surface(X,Y,Z,'FaceColor',Color,'EdgeColor','none','FaceLighting','gouraud','AlphaData',AlphaMap,'AlphaDataMapping','none','FaceAlpha','interp','AmbientStrength',0.7);
+            
+            %the following plots the tensor with different colors (edited code)
+            surface(X,Y,Z,colordata,'EdgeColor','none','FaceLighting','gouraud','FaceAlpha',0.75);
+
+            %the following plots the tensor with different alphas (original code)
+            %surface(X,Y,Z,'FaceColor',Color,'EdgeColor','none','FaceLighting','gouraud','AlphaData',AlphaMap,'AlphaDataMapping','none','FaceAlpha','interp','AmbientStrength',0.7);
         end
     end
     
